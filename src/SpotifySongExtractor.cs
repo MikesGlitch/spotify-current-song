@@ -29,6 +29,8 @@ namespace SpotifyCurrentSong
              *      Could check out how big the app size is as well and compare it.
              *      Otherwise WPF is a decent option...
              *      
+             *      HONESTLY - ELECTRON MIGHT BE THE BEST OPTION HERE
+             *      
              *      I think I should write this in electron and see how big it is in comparison
              * Put a front end on it: https://docs.microsoft.com/en-us/windows/apps/desktop/choose-your-platform
              * Make sure i'm on this list: https://johnnycrazy.github.io/SpotifyAPI-NET/docs/next/showcase/
