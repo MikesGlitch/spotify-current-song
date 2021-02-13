@@ -21,7 +21,18 @@ namespace SpotifyCurrentSong
 
         public SpotifySongExtractor(IOptions<SpotifyApiOptions> spotifyOptions, ILogger<SpotifySongExtractor> logger)
         {
-            // TODO: Make sure i'm on this list: https://johnnycrazy.github.io/SpotifyAPI-NET/docs/next/showcase/
+            /* TODO: 
+             * I want this to run in the system tray - I'll probably want a UI for it? 
+             *      If I do I may want to make this a WPF app(no linux support)? UWP is not suitable cause i can't make it a portable exe
+             *      Also .NET comes with a lot of overhead, maybe Electron might be the better option here...
+             *      Could try an electron app and it'll work on both linux and windows...
+             *      Could check out how big the app size is as well and compare it.
+             *      Otherwise WPF is a decent option...
+             *      
+             *      I think I should write this in electron and see how big it is in comparison
+             * Put a front end on it: https://docs.microsoft.com/en-us/windows/apps/desktop/choose-your-platform
+             * Make sure i'm on this list: https://johnnycrazy.github.io/SpotifyAPI-NET/docs/next/showcase/
+            */
             SpotifyOptions = spotifyOptions;
             Logger = logger;
         }
