@@ -13,7 +13,7 @@ namespace SpotifyCurrentSong
             using IHost host = CreateHostBuilder(args).Build();
 
             var spotifyExtractor = host.Services.GetRequiredService<ISongExtractor>();
-            spotifyExtractor.Start();
+            await spotifyExtractor.Start();
 
             await host.RunAsync();
         }
