@@ -21,6 +21,7 @@ namespace SpotifyCurrentSong
 
         public SpotifySongExtractor(IOptions<SpotifyApiOptions> spotifyOptions, ILogger<SpotifySongExtractor> logger)
         {
+            // TODO: Make sure i'm on this list: https://johnnycrazy.github.io/SpotifyAPI-NET/docs/next/showcase/
             SpotifyOptions = spotifyOptions;
             Logger = logger;
         }
@@ -32,8 +33,6 @@ namespace SpotifyCurrentSong
         private EmbedIOAuthServer Server { get; set; }
 
         private string Verifier { get; set; }
-
-        private SpotifyClient SpotifyClient { get; set; }
 
         public async Task Start()
         {
@@ -66,32 +65,41 @@ namespace SpotifyCurrentSong
             }
             catch (Exception)
             {
-                Console.WriteLine("Unable to open URL, manually open: {0}", uri);
+                // TODO: Figure out how to handle this properly.  Will probably need to fail out and tell the user the port is taken or something
+                Logger.LogCritical("Unable to open URL, manually open: {0}", uri);
             }
         }
 
         private async Task OnAuthorizationCodeReceived(object sender, AuthorizationCodeResponse response)
         {
             await Server.Stop(); // TODO: Check if the refresh tokens work if the server is off?  Does the library turn the server on again?
+            Server.Dispose();
 
             var client = new OAuthClient();
             var tokenResponse = await client.RequestToken(new PKCETokenRequest(SpotifyOptions.Value.ClientId, response.Code, new Uri(RedirectUri), Verifier));
             var authenticator = new PKCEAuthenticator(SpotifyOptions.Value.ClientId, tokenResponse);
             var config = SpotifyClientConfig.CreateDefault().WithAuthenticator(authenticator);
-            SpotifyClient = new SpotifyClient(config);
+            var spotifyClient = new SpotifyClient(config);
 
-            RunSongExtractor();
+            RunSongExtractor(spotifyClient);
         }
 
-        private void RunSongExtractor()
+        private void RunSongExtractor(SpotifyClient spotifyClient)
         {
+            // TODO - All File.WriteAllText needs exception handling
+
             Logger.LogInformation("Started the Spotify song extraction process...");
 
             var timer = new Timer(SpotifyOptions.Value.PollIntervalMilliseconds);
             timer.Elapsed += async (object sender, ElapsedEventArgs e) =>
             {
                 Logger.LogInformation("Calling spotify API to get the currently playing item...");
-                var currentlyplaying = await SpotifyClient.Player.GetCurrentlyPlaying(new PlayerCurrentlyPlayingRequest());
+                var currentlyplaying = await spotifyClient.Player.GetCurrentlyPlaying(new PlayerCurrentlyPlayingRequest());
+
+                if (currentlyplaying == null)
+                {
+                    return;
+                }
 
                 switch (currentlyplaying.Item)
                 {

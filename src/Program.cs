@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
 using System.Threading.Tasks;
 
 namespace SpotifyCurrentSong
@@ -31,8 +30,8 @@ namespace SpotifyCurrentSong
                     var env = hostingContext.HostingEnvironment;
 
                     configuration
-                        .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true, true);
+                        .AddJsonFile("appsettings.json", optional: true)
+                        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true);
 
                     var configurationRoot = configuration.Build();
                 })
