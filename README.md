@@ -10,5 +10,5 @@ Gets the users current song and writes it to a file.
 
 ## Watch me build the app (live stream)
 
-### First release:
-[![Watch me build the app](https://img.youtube.com/vi/GkkEfTrumYI/0.jpg)](https://www.youtube.com/watch?v=GkkEfTrumYI)
+### Playlist:
+[![Watch me build the app](https://img.youtube.com/vi/GkkEfTrumYI/0.jpg)](https://www.youtube.com/playlist?list=PLtB5E_brMhWWp9-N2DhBDULbD9eQ2Ax8R)
