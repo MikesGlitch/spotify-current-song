@@ -2,9 +2,9 @@
 Gets the users current song and writes it to a file.
 
 ## TODO
-- [ ] TODO: Make sure i'm on this list: https://johnnycrazy.github.io/SpotifyAPI-NET/docs/next/showcase/
-
-
+- [ ] Write a guide on how to use it and configure it.  It should work on linux
+- [ ] Create a release on github and link to it
+- [ ] Make sure i'm on this list: https://johnnycrazy.github.io/SpotifyAPI-NET/docs/next/showcase/
 
 ## Watch me build the app (live stream)
 

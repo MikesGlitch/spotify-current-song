@@ -1,0 +1,1 @@
+dotnet publish src/SpotifyCurrentSong.csproj -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeAllContentForSelfExtract=true -c:Release -o:Releases/win-x64

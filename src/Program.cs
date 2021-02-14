@@ -1,6 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace SpotifyCurrentSong
@@ -19,21 +22,20 @@ namespace SpotifyCurrentSong
 
         static IHostBuilder CreateHostBuilder(string[] args)
         {
-            // Consider a post startup task - https://docs.microsoft.com/en-us/dotnet/core/extensions/generic-host
-            // It will authenticate with spotify and grab an access token
-
             return Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((hostingContext, configuration) =>
                 {
                     configuration.Sources.Clear();
 
                     var env = hostingContext.HostingEnvironment;
-
                     configuration
-                        .AddJsonFile("appsettings.json", optional: true)
-                        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true);
-
-                    var configurationRoot = configuration.Build();
+                        .SetFileLoadExceptionHandler((context) =>
+                        {
+                            var exeLocation = Path.GetDirectoryName(Process.GetCurrentProcess()?.MainModule?.FileName ?? AppDomain.CurrentDomain.BaseDirectory);
+                            var errorInfo = $"You configuration could not be read - please ensure it is valid before running the exe \n\n {context.Exception}";
+                            File.WriteAllText(exeLocation + "/config-error.txt", errorInfo);
+                        })
+                        .AddJsonFile("appsettings.json", optional: false);
                 })
                 .ConfigureServices((hostBuilderContext, services) =>
                 {
