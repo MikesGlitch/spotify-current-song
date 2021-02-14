@@ -2,6 +2,7 @@
 Gets the users current song and writes it to a file.
 
 ## TODO
+- [ ] Consider if it's worth doing the below - It's just me that's using this at the moment
 - [ ] Consider if it's worth removing the Spotify library - it's casuing the dist to be much larger than it needs to be.  Should be fairly simple, use snip as a guide
 - [ ] Fix the login - it's asking you to authorize every time
 - [ ] Figure out how to add an icon to the published exe
