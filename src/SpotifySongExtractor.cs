@@ -119,14 +119,17 @@ namespace SpotifyCurrentSong
                 {
                     case FullTrack fullTrack:
                         var artistsText = string.Join(", ", fullTrack.Artists.Select(x => x.Name));
+                        var licence = GetLicenceForArtist(fullTrack.Artists.FirstOrDefault()?.Name);
                         songText = SpotifyOptions.Value.CurrentSongTextFormat
                             .Replace(SpotifyApiOptions.SongToken, fullTrack.Name)
-                            .Replace(SpotifyApiOptions.ArtistToken, artistsText);
+                            .Replace(SpotifyApiOptions.ArtistToken, artistsText)
+                            .Replace(SpotifyApiOptions.licenceToken, licence);
                         break;
                     case FullEpisode fullEpisode:
                         songText = SpotifyOptions.Value.CurrentSongTextFormat
                             .Replace(SpotifyApiOptions.SongToken, fullEpisode.Name)
-                            .Replace(SpotifyApiOptions.ArtistToken, fullEpisode.Show.Name);
+                            .Replace(SpotifyApiOptions.ArtistToken, fullEpisode.Show.Name)
+                            .Replace(SpotifyApiOptions.licenceToken, "(Royalty free)");
                         break;
                 }
 
@@ -135,6 +138,19 @@ namespace SpotifyCurrentSong
 
             SongExtractorTimer.AutoReset = true;
             SongExtractorTimer.Enabled = true;
+        }
+
+        private string GetLicenceForArtist(string? artist)
+        {
+            var defaultLicence = "(Copyright free)";
+
+            return artist switch
+            {
+                "Jeff II" => "https://www.youtube.com/c/JeffII (Copyright free)",
+                "Approaching Nirvana" => "http://bit.ly/AN_Spotify (Copyright free)",
+                "Scott Buckley" => "http://www.scottbuckley.com.au/ (CC BY 4.0)",
+                _ => defaultLicence
+            };
         }
 
         private void WriteSongToFile(string songText)

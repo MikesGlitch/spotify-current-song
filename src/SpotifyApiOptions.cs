@@ -11,6 +11,8 @@ namespace SpotifyCurrentSong
 
         public const string ArtistToken = "{ARTIST}";
 
+        public const string licenceToken = "{LICENCE}";
+
         /// <summary>
         /// Client ID in spotify - allow the user to change it to their own if they want
         /// </summary>
@@ -38,7 +40,7 @@ namespace SpotifyCurrentSong
         /// Text format to use when writing the file.  All {} properties are token replaced
         /// Valid Tokens are {SONG} and {ARTIST}
         /// </summary>
-        public string CurrentSongTextFormat { get; set; } = $"{SongToken} by {ArtistToken}";
+        public string CurrentSongTextFormat { get; set; } = $"{SongToken} by {ArtistToken} - {licenceToken}";
 
         /// <summary>
         /// Delay (in milliseconds) before the next Spotify API call is made
