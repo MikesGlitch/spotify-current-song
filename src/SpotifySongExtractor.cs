@@ -142,15 +142,12 @@ namespace SpotifyCurrentSong
 
         private string GetLicenceForArtist(string? artist)
         {
-            var defaultLicence = "(Copyright free)";
-
-            return artist switch
+            if (!string.IsNullOrEmpty(artist) && SpotifyOptions.Value.ArtistLicences.TryGetValue(artist, out var licence))
             {
-                "Jeff II" => "https://www.youtube.com/c/JeffII (Copyright free)",
-                "Approaching Nirvana" => "http://bit.ly/AN_Spotify (Copyright free)",
-                "Scott Buckley" => "http://www.scottbuckley.com.au/ (CC BY 4.0)",
-                _ => defaultLicence
-            };
+                return licence;
+            }
+            
+            return "(Copyright free)";
         }
 
         private void WriteSongToFile(string songText)

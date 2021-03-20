@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -48,8 +49,13 @@ namespace SpotifyCurrentSong
         public int PollIntervalMilliseconds { get; set; } = 3000;
 
         /// <summary>
-        /// Wriite an empty file when no track is playing.  It can be turned off to optimize performance/minimize file writes
+        /// Write an empty file when no track is playing.  It can be turned off to optimize performance/minimize file writes
         /// </summary>
         public bool WriteEmptyFileWhenNoTrackPlaying { get; set; } = true;
+
+        /// <summary>
+        /// Set of licences to use for the Licence field if listening to an artist.  The key is the artist name and value is the licence
+        /// </summary>
+        public Dictionary<string, string> ArtistLicences { get; set; } = new Dictionary<string, string>();
     }
 }
