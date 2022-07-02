@@ -1,4 +1,4 @@
-# spotify-current-song
+# Spotify Current Song (For OBS)
 Gets the users current song and writes it to a file.
 
 ## Watch me build the app (live stream)
